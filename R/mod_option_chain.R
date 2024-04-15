@@ -20,39 +20,40 @@
 #' @importFrom DT renderDT
 #' @rawNamespace import(shiny, except=c(dataTableOutput, renderDataTable))
 #'
-mod_greeks_ui <- function(id){
+#'
+#' @noRd
+mod_option_chain_ui <- function(id){
   ns <- NS(id)
+  tagList(
 
-shiny::tagList(
+    shiny::tagList(
 
-title = "Options Chain - Week of Earnings",
+      title = "Options Chain - Friday Following Earnings Release",
 
-shiny::sidebarLayout(
+      shiny::sidebarLayout(
 
-  shiny::sidebarPanel(
+        shiny::sidebarPanel(
 
-    shiny::actionButton(ns("generator"),"Get Options Chain"),
-    width = 5),
+          shiny::actionButton(ns("generator"),"Get Options Chain"),
+          width = 5),
 
-  shiny::mainPanel(
-    shinycssloaders::withSpinner(DT::DTOutput(ns("option_chain")))
-)))
+        shiny::mainPanel(
+          shinycssloaders::withSpinner(DT::DTOutput(ns("option_chain")))
+        )))
+
+  )
 }
 
 
-
-#' greeks Server Functions
-#'
-#' @noRd
-mod_greeks_server <- function(id, r){
+mod_option_chain_server <- function(id, r){
   moduleServer(id, function(input, output, session){
 
     ns <- session$ns
 
-    tolisten <- reactive({list(r$sector, r$month)})
 
 
-    observeEvent(tolisten(), {
+    shiny::observeEvent(input$generator, {
+
 
     prices <- reactive({
       # # browser()
@@ -77,7 +78,7 @@ mod_greeks_server <- function(id, r){
         purrr::map(.f = ~tidyr::nest(.x)) %>%
         dplyr::bind_rows()})
 
-      z() %>% dplyr::mutate(date_codes = u()) %>% tidyr::unnest() %>% tidyr::unnest()
+      z() %>% dplyr::mutate(date_codes = u()) %>% tidyr::unnest(cols = c(date_codes)) %>% tidyr::unnest(cols = c(data))
 
     })
 
@@ -96,7 +97,7 @@ mod_greeks_server <- function(id, r){
 
     t <- reactive({
       # browser()
-        r$go() %>% tidyr::unnest() %>%
+        r$go() %>% tidyr::unnest(cols = c(data)) %>%
         dplyr::ungroup() %>%
         dplyr::select(act_symbol) %>%
         merge(r$month_select_mod(), by.x ="act_symbol", by.y = "act_symbol") %>%
@@ -160,7 +161,7 @@ mod_greeks_server <- function(id, r){
         purrr::map(.f = ~tidyr::nest(.x)) %>%
         dplyr::bind_rows() %>%
         dplyr::mutate(act_symbol = get_links_filtered()$act_symbol) %>%
-        tidyr::unnest() %>%
+        tidyr::unnest(cols = c(data)) %>%
         dplyr::mutate(expiry = as.Date(Expiration)) %>%
         dplyr::mutate(call_or_put = as.character("call")) %>%
       dplyr::select(act_symbol,
@@ -193,7 +194,7 @@ mod_greeks_server <- function(id, r){
         purrr::map(.f = ~tidyr::nest(.x)) %>%
         dplyr::bind_rows() %>%
         dplyr::mutate(act_symbol = get_links_filtered()$act_symbol) %>%
-        tidyr::unnest() %>%
+        tidyr::unnest(cols = c(data)) %>%
         dplyr::mutate(expiry = as.Date(Expiration)) %>%
         dplyr::mutate(call_or_put = as.character("put")) %>%
         dplyr::select(act_symbol,
@@ -218,9 +219,7 @@ mod_greeks_server <- function(id, r){
     })
 
 
-    output_table <- reactive({
-      # browser()
-      call() %>% dplyr::bind_rows(puts()) %>%
+    output_table <- reactive({call() %>% dplyr::bind_rows(puts()) %>%
         dplyr::select(act_symbol,
                       call_or_put,
                       expiry,
@@ -241,30 +240,42 @@ mod_greeks_server <- function(id, r){
         dplyr::mutate(DTE = DTE %>% stringr::str_replace_all("days", "")) %>%
         dplyr::mutate(DTE = as.double(DTE)) %>%
         dplyr::mutate(dividend = 0) %>%
-        dplyr::select(1:12, 14)
-      })
+        dplyr::select(1:12, 14) %>%
+        dplyr::rename(Ticker = act_symbol,
+                      CallPut = call_or_put,
+                      Expiry = expiry,
+                      historical_vol = hv_current,
+                      Days_to_Expiry = DTE)
+
       #%>% shiny::bindEvent(input$generator)
-
-
-
-       output$option_chain <- DT::renderDT({
-
-
-
-           output_table()
-           })
-
-
 
     })
 
 
-  })
+    output$option_chain <- DT::renderDT({
+      #shiny::req(output_table())
+
+      shiny::isolate(output_table())
+    })
+
+
+  }, ignoreNULL = TRUE)
+
+
+})
 }
 
 
 ## To be copied in the UI
-# mod_greeks_ui("greeks_1")
+# mod_option_chain_ui("option_chain_1")
 
 ## To be copied in the server
-# mod_greeks_server("greeks_1")
+# mod_option_chain_server("option_chain_1")
+
+
+
+
+
+
+
+

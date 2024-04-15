@@ -9,7 +9,7 @@
 #' @importFrom shiny NS tagList
 
 
-mod_name_of_module3_test_ui <- function(id){
+mod_sector_ui <- function(id){
   ns <- NS(id)
 
 
@@ -35,7 +35,7 @@ shiny::tagList(
 #' name_of_module3_test Server Functions
 #'
 #' @noRd
-mod_name_of_module3_test_server <- function(id, r){
+mod_sector_server <- function(id, r){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
@@ -47,10 +47,10 @@ mod_name_of_module3_test_server <- function(id, r){
 
 
 ## To be copied in the UI
-# mod_name_of_module3_test_ui("name_of_module3_test_1")
+# mod_sector_ui("sector_1")
 
 ## To be copied in the server
-# mod_name_of_module3_test_server("name_of_module3_test_1")
+# mod_sector_server("sector_1")
 
 
 

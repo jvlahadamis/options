@@ -13,16 +13,16 @@
 #' @import shiny
 #' @import tidyr
 #' @import rvest
-mod_name_of_module1_ui <- function(id){
+mod_calendar_ui <- function(id){
 
 
   ns <- NS(id) # namespace
 
 
   shiny::tagList(title = "",
-                      shiny::sidebarLayout(
+                      #shiny::sidebarLayout(
 
-                        shiny::sidebarPanel(width = 5),
+
                         shiny::mainPanel(
 
 
@@ -32,7 +32,7 @@ mod_name_of_module1_ui <- function(id){
                       shiny::br(),
                       shinycssloaders::withSpinner(shiny::plotOutput(ns("calendar"),
                                                             width = "130%",
-                                                            height = 900)))))
+                                                            height = 900))))
 
 
   }
@@ -42,7 +42,7 @@ mod_name_of_module1_ui <- function(id){
 #' name_of_module1 Server Functions
 #'
 #' @noRd
-mod_name_of_module1_server <- function(id, r){
+mod_calendar_server <- function(id, r){
   moduleServer(id, function(input, output, session){
 
     ns <- session$ns
@@ -114,10 +114,10 @@ mod_name_of_module1_server <- function(id, r){
 
 
 ## To be copied in the UI
-# mod_name_of_module1_ui("name_of_module1_1")
+# mod_calendar_ui("calendar_1")
 
 ## To be copied in the server
-# mod_name_of_module1_server("name_of_module1_1")
+# mod_calendar_server("calendar_1")
 
 
 

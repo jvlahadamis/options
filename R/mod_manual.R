@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_maunal_ui <- function(id){
+mod_manual_ui <- function(id){
   ns <- NS(id)
 
 
@@ -27,7 +27,7 @@ mod_maunal_ui <- function(id){
 #' maunal Server Functions
 #'
 #' @noRd
-mod_maunal_server <- function(id){
+mod_manual_server <- function(id){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
@@ -51,7 +51,7 @@ mod_maunal_server <- function(id){
         shiny::br(),
         shiny::h3("2.  Percentile of Options implied Volatility"),
          shiny::h4("This tab displays an important risk metric - the current percentile of
-          the respective tickers aggregate option implied volatility -
+          the option implied volatility -
           measured as percentage of time the options implied volatlilty has
           been greater than it's current value over the past 252 trading days.
           The Implied Volatility percentile can help traders assess position
@@ -59,9 +59,10 @@ mod_maunal_server <- function(id){
           options on companies in the given sector."),
         shiny::br(),
         shiny::br(),
-        shiny::h3("3.  Options Chain of tickers for the selected Sector and Month"),
+        shiny::h3("3.  Options Chain for Friday after earnings release"),
 
-          shiny::h4("This tab pulls the option chain for the Friday immediately following each company's earnings release."),
+          shiny::h4("This tab pulls the option chain for the Friday immediately following each company's earnings release. When the
+                    action button is clicked, the option chain for the currently selected sector and will be pulled."),
         shiny::br(),
         shiny::br(),
         shiny::br()
@@ -77,7 +78,7 @@ mod_maunal_server <- function(id){
 
 
 ## To be copied in the UI
-# mod_maunal_ui("maunal_1")
+# mod_manual_ui("manual_1")
 
 ## To be copied in the server
-# mod_maunal_server("maunal_1")
+# mod_manual_server("manual_1")

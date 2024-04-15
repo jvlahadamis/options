@@ -9,6 +9,8 @@ import(quantmod)
 import(rvest)
 import(shiny)
 import(shiny, except=c(dataTableOutput, renderDataTable))
+import(shiny, except=c(dataTableOutput, renderDataTable))
+
 
 import(shinycssloaders)
 import(shinydashboard)

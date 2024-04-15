@@ -67,7 +67,7 @@ mod_implied_vol_percentile_server <- function(id, r){
 
       t <- list(
         family = "Roboto",
-        size = 10,
+        size = 13,
         color = "black")
 
 t1 <- list(
@@ -77,11 +77,11 @@ t1 <- list(
 
       t2 <- list(
         family = "Roboto",
-        size = 12,
+        size = 13,
         color = "black")
 
       t()  %>%
-        dplyr::filter(act_symbol %in% (r$go() %>% tidyr::unnest())$act_symbol) %>%
+        dplyr::filter(act_symbol %in% (r$go() %>% tidyr::unnest(cols = c(data)))$act_symbol) %>%
         dplyr::group_by(act_symbol) %>%
         dplyr::filter(SEC.filings %in% r$sector) %>%
         dplyr::summarise(iv_percentile = sum(count_of)/252) %>%
