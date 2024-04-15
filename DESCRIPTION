@@ -1,0 +1,47 @@
+Package: optionsearnings
+Title: Tools to trade Options during Earnings Season
+Version: 0.0.0.9000
+Authors@R: 
+    person("Jonathan", "Vlahadamis", , "vlahadam@ualberta.ca", role = c("cre", "aut"))
+Description: Tools to trade options around earnings.
+License: MIT + file LICENSE
+URL: https://github.com/jvlahadamis/optionsearnings
+BugReports: https://github.com/jvlahadamis/optionsearnings/issues
+Depends: 
+    R (>= 2.10)
+Imports: 
+    BatchGetSymbols,
+    bslib,
+    calendR,
+    config (>= 0.3.2),
+    dplyr,
+    DT,
+    golem (>= 0.4.1),
+    magrittr,
+    mongolite,
+    plotly,
+    purrr,
+    qdapRegex,
+    quantmod,
+    rvest,
+    shiny (>= 1.8.0),
+    shinycssloaders,
+    shinydashboard,
+    stringr,
+    tibble,
+    tidyquant,
+    tidyr
+Suggests: 
+    knitr,
+    rmarkdown,
+    spelling,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
+Remotes: 
+    rstudio/DT
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+RoxygenNote: 7.3.1
