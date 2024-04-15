@@ -32,6 +32,8 @@ mod_general_inputs_server <- function(id, r){
 
     r$vol <- readr::read_csv("https://www.dolthub.com/csv/post-no-preference/options/master/volatility_history?include_bom=0")
 
+
+
     # saveRDS(df, "savedf")
     # saveRDS(vol, "voldf")
     #df <- readRDS("savedf")

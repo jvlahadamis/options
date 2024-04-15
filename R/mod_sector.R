@@ -22,7 +22,7 @@ shiny::tagList(
       shiny::radioButtons(ns("sector_inp"),
                           "Select Sector",
                           choices = sectoring$SEC.filings,
-                          selected = "Communication Services",
+                          selected = "Information Technology",
                           inline = TRUE)
       )
 
