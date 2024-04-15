@@ -18,7 +18,6 @@ Imports:
     DT,
     golem (>= 0.4.1),
     magrittr,
-    mongolite,
     plotly,
     purrr,
     qdapRegex,

@@ -1,13 +1,13 @@
-name: ci
+name: Deploy Shiny App
 
 on:
   push:
-    branches:
-    - 'main'
+    branches: [ main ]
 
 jobs:
-  docker:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Docker Buildx
