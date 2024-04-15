@@ -46,7 +46,7 @@ mod_manual_server <- function(id){
             companies in the S&P 500. Simply choose a sector at the top along
             with the month you wish to view.
 
-            Note: only months with confirmed earnings releases are displayed."),
+            Note: only companies with confirmed earnings releases are displayed."),
         shiny::br(),
         shiny::br(),
         shiny::h3("2.  Percentile of Options implied Volatility"),
